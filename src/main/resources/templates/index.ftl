@@ -78,11 +78,11 @@
 <div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
-            <#if user.status==0||user.status==3>
+            <#if user.status==0>
                 <li>
                     <a href="javascript:;">
-                        <i class="iconfont left-nav-li" lay-tips="主编模块">&#xe6b8;</i>
-                        <cite>主编模块</cite>
+                        <i class="iconfont left-nav-li" lay-tips="选课模块">&#xe6b8;</i>
+                        <cite>选课模块</cite>
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
@@ -91,19 +91,19 @@
                                 <cite>个人信息</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('发布新闻','/page/editor')">
+                            <a onclick="xadmin.add_tab('开始选课','/page/essayList')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>发布新闻</cite></a>
+                                <cite>开始选课</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('新闻管理','/page/essayList')">
+                            <a onclick="xadmin.add_tab('自选科目','/page/essayList')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>新闻管理</cite></a>
+                                <cite>自选科目</cite></a>
                         </li>
                     </ul>
                 </li>
             </#if>
-            <#if user.status==3||user.status==4>
+            <#if user.status==3>
                 <li>
                     <a href="javascript:;">
                         <i class="iconfont left-nav-li" lay-tips="管理员模块">&#xe726;</i>
@@ -111,24 +111,24 @@
                         <i class="iconfont nav_right">&#xe697;</i></a>
                     <ul class="sub-menu">
                         <li>
-                            <a onclick="xadmin.add_tab('待审核新闻','/page/masterEssayList')">
+                            <a onclick="xadmin.add_tab('科目管理','/page/lessonList')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>待审核新闻</cite></a>
+                                <cite>科目管理</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('过审新闻','/page/masterEssayPassList')">
+                            <a onclick="xadmin.add_tab('学生管理','/page/userList')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>过审新闻</cite></a>
+                                <cite>学生管理</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('类型管理','/page/typeList')">
+                            <a onclick="xadmin.add_tab('课程表管理','/page/classList')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>类型管理</cite></a>
+                                <cite>课程表管理</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('主编管理','/page/toGetMaster')">
+                            <a onclick="xadmin.add_tab('定时任务管理','/page/toGetMaster')">
                                 <i class="iconfont">&#xe6a7;</i>
-                                <cite>主编管理</cite></a>
+                                <cite>定时任务管理</cite></a>
                         </li>
                         <li>
                             <a onclick="xadmin.add_tab('管理员管理','/page/toAdmin')">

@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface LessonService extends JpaRepository<Lesson,Integer> {
 
+    Lesson findByName(String name);
 }

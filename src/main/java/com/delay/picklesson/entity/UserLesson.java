@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * @author 闫金柱
- * @date 2021-3-27 19:27
+ * @Author 闫金柱
+ * @create 2021-3-30 14:30
  */
 @Entity
 @Data
-@Table(name = "t_lesson_class")
-public class LessonClass {
+@Table(name = "t_user_lesson")
+public class UserLesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//自增长
@@ -24,11 +24,16 @@ public class LessonClass {
     @ManyToOne(fetch = FetchType.EAGER)
     private Lesson lesson;
 
-    private String doClassTime;//上课时间  每周三第七节 19:00-21:00
+    @JoinColumn(name = "lesson_class_id")//外键字段
+    @ManyToOne(fetch = FetchType.EAGER)
+    private LessonClass lessonClass;
 
-    private Integer num;//总人数（意味着提供的课程总数量）
+    @JoinColumn(name = "user_id")//外键字段
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
+
 }

@@ -66,4 +66,50 @@ public class PageController extends BaseController{
         return "login";
     }
 
+    /**
+     * 个人信息
+     *
+     * @return
+     */
+    @RequestMapping("person")
+    public String person(){
+        return "author/person";
+    }
+
+    /**
+     * 科目管理
+     * @return
+     */
+    @RequestMapping("lessonList")
+    public String lessonList(){
+        return "lesson/lesson-list";
+    }
+
+    /**
+     * 添加科目
+     * @return
+     */
+    @RequestMapping("addLesson")
+    public String addLesson(){
+        return "lesson/lesson-add";
+    }
+
+    /**
+     * 学生列表
+     * @return
+     */
+    @RequestMapping("userList")
+    public String userList(){
+        return "author/person-list";
+    }
+
+    /**
+     * 课程表列表
+     * @return
+     */
+    @RequestMapping("classList")
+    public String classList(){
+        return "class/class-list";
+    }
+
 }
