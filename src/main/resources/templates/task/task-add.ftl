@@ -32,6 +32,8 @@
                         <option value="">请选择学期</option>
                     </select>
                 </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>开始时间
                 </label>
@@ -39,6 +41,8 @@
                     <input type="text" name="taskTime" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" value="">
                 </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>结束时间
                 </label>

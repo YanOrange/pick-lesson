@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author 闫金柱
@@ -25,6 +26,20 @@ public class TaskController {
 
     @Autowired
     TaskService taskService;
+
+    /**
+     * 更改任务页面
+     *
+     * @return
+     */
+    @RequestMapping("findAll")
+    @ResponseBody
+    public ExecuteResult findAll() {
+
+        List<Task> all = taskService.findAll();
+
+        return ExecuteResult.ok(all);
+    }
 
     /**
      * 更改任务页面

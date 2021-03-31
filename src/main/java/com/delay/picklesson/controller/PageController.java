@@ -167,5 +167,23 @@ public class PageController extends BaseController{
         return "pick/user-lesson-list";
     }
 
+    /**
+     * 前往添加课程页面
+     * @return
+     */
+    @RequestMapping("addLessonClass")
+    public String addLessonClass(){
+        return "class/class-add";
+    }
+
+    /**
+     * 前往添加定时任务页面
+     * @return
+     */
+    @RequestMapping("addTask")
+    public String addTask(){
+        return "task/task-add";
+    }
+
 
 }

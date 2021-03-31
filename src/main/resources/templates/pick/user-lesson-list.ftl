@@ -98,6 +98,7 @@
     /*数据查询*/
 
     $(function () {
+        getAllEssay()
     })
 
     function pickLesson(classId){

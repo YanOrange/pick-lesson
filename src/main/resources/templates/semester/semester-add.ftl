@@ -25,7 +25,7 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>类型名称
+                    <span class="x-red">*</span>学期名称
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="username" name="name" required="" lay-verify="required"
@@ -60,14 +60,14 @@
                     var s = JSON.stringify(data.field);
                     console.log(s)
                     $.ajax({
-                        url: '/type/add',
+                        url: '/semester/add',
                         data: s,
                         contentType: "application/json;charset=UTF-8",
                         type: 'post',
                         dataType: 'json',
                         success: function (res) {
                             if (res.success) {
-                                layer.alert('类型新增成功', {
+                                layer.alert('学期新增成功', {
                                         icon: 6
                                     },
                                     function () {

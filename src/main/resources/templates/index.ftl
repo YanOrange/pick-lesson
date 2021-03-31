@@ -78,7 +78,7 @@
 <div class="left-nav">
     <div id="side-nav">
         <ul id="nav">
-            <#if user.status==0>
+            <#if user.status==0 || user.status==3>
                 <li>
                     <a href="javascript:;">
                         <i class="iconfont left-nav-li" lay-tips="选课模块">&#xe6b8;</i>

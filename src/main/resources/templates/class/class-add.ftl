@@ -32,6 +32,8 @@
                         <option value="">请选择学期</option>
                     </select>
                 </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>科目
                 </label>
@@ -40,6 +42,8 @@
                         <option value="">请选择科目</option>
                     </select>
                 </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>上课时间
                 </label>
@@ -47,6 +51,8 @@
                     <input type="text" name="doClassTime" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" value="">
                 </div>
+            </div>
+            <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>总人数
                 </label>
@@ -67,113 +73,113 @@
 </div>
 <script>
     layui.use(['form', 'layer'],
-        function () {
-            // $ = layui.jquery;
-            var form = layui.form,
-                layer = layui.layer;
+            function () {
+                // $ = layui.jquery;
+                var form = layui.form,
+                        layer = layui.layer;
 
-            //自定义验证规则
-            form.verify({});
+                //自定义验证规则
+                form.verify({});
 
-            initSemester();
-            initLesson();
+                initSemester();
+                initLesson();
 
-            //监听提交
-            form.on('submit(edit)',
-                function (data) {
-                    console.log(data);
-                    //发异步，把数据提交给后端
-                    var semester = data.field.semester;
-                    data.field['semester'] = {};
-                    data.field.semester['id'] = semester;
-                    var lesson = data.field.lesson;
-                    data.field['lesson'] = {};
-                    data.field.lesson['id'] = lesson;
-                    var s = JSON.stringify(data.field);
-                    console.log(s)
+                //监听提交
+                form.on('submit(edit)',
+                        function (data) {
+                            console.log(data);
+                            //发异步，把数据提交给后端
+                            var semester = data.field.semester;
+                            data.field['semester'] = {};
+                            data.field.semester['id'] = semester;
+                            var lesson = data.field.lesson;
+                            data.field['lesson'] = {};
+                            data.field.lesson['id'] = lesson;
+                            var s = JSON.stringify(data.field);
+                            console.log(s)
+                            $.ajax({
+                                url: '/lessonClass/add',
+                                data: s,
+                                contentType: "application/json;charset=UTF-8",
+                                type: 'post',
+                                dataType: 'json',
+                                success: function (res) {
+                                    if (res.success) {
+                                        layer.alert('课程新增成功', {
+                                                    icon: 6
+                                                },
+                                                function () {
+                                                    //关闭当前frame
+                                                    xadmin.close();
+
+                                                    // 可以对父窗口进行刷新
+                                                    xadmin.father_reload();
+                                                });
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+
+
+                                }
+                            })
+
+                            return false;
+                        });
+
+                function initLesson() {
                     $.ajax({
-                        url: '/lessonClass/add',
-                        data: s,
-                        contentType: "application/json;charset=UTF-8",
-                        type: 'post',
+                        url: '/lesson/getAll',
                         dataType: 'json',
                         success: function (res) {
                             if (res.success) {
-                                layer.alert('课程新增成功', {
-                                        icon: 6
-                                    },
-                                    function () {
-                                        //关闭当前frame
-                                        xadmin.close();
-
-                                        // 可以对父窗口进行刷新
-                                        xadmin.father_reload();
-                                    });
-                            } else {
-                                layer.msg(res.msg, {icon: 2});
+                                var html = '<option value="">请选择科目</option>';
+                                $.each(res.data, function (i, r) {
+                                    html += '<option value="' + r.id + '">' + r.name + '</option>';
+                                })
+                                $('#lesson').html(html);
+                                form.render('select');
                             }
-
-
                         }
                     })
+                }
 
-                    return false;
-                });
-
-            function initLesson() {
-                $.ajax({
-                    url: '/lesson/getAll',
-                    dataType: 'json',
-                    success: function (res) {
-                        if (res.success) {
-                            var html = '<option value="">请选择科目</option>';
-                            $.each(res.data, function (i, r) {
-                                html += '<option value="' + r.id + '">' + r.name + '</option>';
-                            })
-                            $('#lesson').html(html);
-                            form.render('select');
+                function initSemester() {
+                    $.ajax({
+                        url: '/semester/findAll',
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res.success) {
+                                var html = '<option value="">请选择学期</option>';
+                                $.each(res.data, function (i, r) {
+                                    html += '<option value="' + r.id + '">' + r.name + '</option>';
+                                })
+                                $('#semester').html(html);
+                                form.render('select');
+                            }
                         }
-                    }
-                })
-            }
+                    })
+                }
 
-            function initSemester() {
-                $.ajax({
-                    url: '/semester/findAll',
-                    dataType: 'json',
-                    success: function (res) {
-                        if (res.success) {
-                            var html = '<option value="">请选择学期</option>';
-                            $.each(res.data, function (i, r) {
-                                html += '<option value="' + r.id + '">' + r.name + '</option>';
-                            })
-                            $('#semester').html(html);
-                            form.render('select');
-                        }
-                    }
-                })
-            }
-
-        });
+            });
 
 
 </script>
 <script>
     layui.use('laydate',
-        function () {
-            var laydate = layui.laydate;
+            function () {
+                var laydate = layui.laydate;
 
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#start' //指定元素
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#start' //指定元素
+                });
+
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#end' //指定元素
+                });
+
             });
-
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#end' //指定元素
-            });
-
-        });
 </script>
 </body>
 

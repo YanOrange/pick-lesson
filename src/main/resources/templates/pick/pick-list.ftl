@@ -46,7 +46,7 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-md12  layui-form-pane">
+                    <form class="layui-form  layui-form-pane">
                         <div class="layui-form-item">
                             <label class="layui-form-label">选择学期</label>
                             <div class="layui-input-inline" style="width:300px;">
