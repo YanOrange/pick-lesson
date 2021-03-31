@@ -46,7 +46,6 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-
                     <form class="layui-form layui-col-md12  layui-form-pane">
                         <div class="layui-form-item">
                             <label class="layui-form-label">选择学期</label>
@@ -57,12 +56,9 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="delAll()">
-                        <i class="layui-icon"></i>批量删除
-                    </button>
+
                 </div>
                 <div class="layui-card-body ">
                     <table id="LAY_table_user" class="layui-table">
@@ -94,6 +90,13 @@
         });
 </script>
 <script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+    });
+</script>
+<script>
+    /*操作数据*/
     layui.use(['table', 'form'], function () {
         var table = layui.table;
         var form = layui.form;
@@ -126,80 +129,30 @@
 
     });
 </script>
-<script>
-    /*操作数据*/
-
-    /*用户-删除*/
-    function member_del(obj, id) {
-        var arr = [];
-        arr.push(id);
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $.ajax({
-                url: '/lessonClass/delete',
-                data: JSON.stringify(arr),
-                type: 'post',
-                dataType: 'json',
-                contentType: "application/json",
-                success: function (res) {
-                    if (res.success) {
-                        $(obj).parents("tr").remove();
-                        layer.msg('已删除!', {icon: 1, time: 1000});
-                    } else {
-                        layer.msg(res.msg, {icon: 2, time: 1000});
-                    }
-                }
-            })
-        });
-    }
-
-    /*用户-删除全部*/
-    function delAll(argument) {
-        var checkStatus = layui.table.checkStatus('checkboxTable').data;
-        var ids = [];
-        // 获取选中的id
-        $.each(checkStatus, function (index, el) {
-            ids.push(el.id)
-        });
-
-        layer.confirm('确认要删除吗？' + ids.toString(),
-            function () {
-                //捉到所有被选中的，发异步进行删除
-                $.ajax({
-                    url: '/lessonClass/delete',
-                    data: JSON.stringify(ids),
-                    dataType: 'json',
-                    type: 'post',
-                    contentType: 'application/json',
-                    success: function (res) {
-                        if (res.success) {
-                            layer.msg('删除成功', {
-                                icon: 1
-                            });
-                            $(".layui-form-checked").not('.header').parents('tr').remove();
-                            xadmin.father_reload();
-                        } else {
-                            layer.msg(res.msg, {
-                                icon: 2
-                            });
-                        }
-                    }
-
-                })
-
-            });
-    }
-
-
-</script>
 <script th:inline="none">
     /*数据查询*/
 
     $(function () {
-
     })
 
-    /*获取全部课程表*/
+    function pickLesson(classId){
+        $.ajax({
+            url:'/pick/pickLesson',
+            data:{
+                lessonClassId:classId
+            },
+            dataType:'json',
+            success:function(res){
+                if(res.success){
+                    layer.msg('选课成功，请前往自选科目中查看', {icon: 1, time: 1000});
+                }else{
+                    layer.msg(res.msg, {icon: 2, time: 1000});
+                }
+            }
+        })
+    }
+
+    /*获取全部文章*/
     function getAllEssay(semesterId) {
         layui.use('table',
             function () {
@@ -241,8 +194,8 @@
 
 </script>
 <script type="text/html" id="barTeacher">
-    <a title="移除" onclick="member_del(this,{{d.id}})" href="javascript:;">
-        <i class="layui-icon">&#xe640;</i>
+    <a title="选课" onclick="pickLesson({{d.id}})" href="javascript:;">
+        选课
     </a>
 </script>
 

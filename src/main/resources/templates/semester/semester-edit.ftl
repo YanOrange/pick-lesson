@@ -23,71 +23,14 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
-            <input type="hidden" name="id" value="${author.id}">
-            <div class="layui-form-item">
-                <label for="account" class="layui-form-label">
-                    <span class="x-red">*</span>学号
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="account" name="account" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.account}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="passWord" class="layui-form-label">
-                    <span class="x-red">*</span>密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="passWord" name="passWord" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.passWord}">
-                </div>
-            </div>
+            <input type="hidden" name="id" value="${semester.id}">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>真实姓名
+                    <span class="x-red">*</span>学期名称
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="username" name="name" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.name}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"><span class="x-red">*</span>性别</label>
-                <div class="layui-input-inline">
-                    <#if author.sex == '男'>
-                        <input type="radio" name="sex" value="男" title="男" checked>
-                        <input type="radio" name="sex" value="女" title="女">
-                    <#elseif author.sex == '女'>
-                        <input type="radio" name="sex" value="男" title="男">
-                        <input type="radio" name="sex" value="女" title="女" checked>
-                    </#if>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>联系方式
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" name="phone" required="" lay-verify="phone"
-                           autocomplete="off" class="layui-input" value="${author.phone}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>专业
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" name="specialty" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.specialty}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>班级
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" name="grade" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.grade}">
+                           autocomplete="off" class="layui-input" value="${semester.name!''}">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -118,7 +61,7 @@
                     var s = JSON.stringify(data.field);
                     console.log(s)
                     $.ajax({
-                        url: '/user/editInfo',
+                        url: '/semester/editInfo',
                         data: s,
                         contentType: "application/json;charset=UTF-8",
                         type: 'post',

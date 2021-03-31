@@ -77,7 +77,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>专业
+                    <span class="x-red">*</span>班级
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" name="grade" required="" lay-verify="required"

@@ -63,9 +63,9 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/addType',800,600)"
+                    <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/addSemester',800,600)"
                             href="javascript:;">
-                        <i class="layui-icon iconfont">&#xe6b9;</i>新增类型
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增学期
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
@@ -115,7 +115,7 @@
         layer.confirm('确认要永久删除吗？', function (index) {
             //发异步删除数据
             $.ajax({
-                url: '/type/delete',
+                url: '/semester/delete',
                 data: JSON.stringify(arr),
                 type: 'post',
                 dataType: 'json',
@@ -145,7 +145,7 @@
             function () {
                 //捉到所有被选中的，发异步进行删除
                 $.ajax({
-                    url: '/type/delete',
+                    url: '/semester/delete',
                     data: JSON.stringify(ids),
                     dataType: 'json',
                     type: 'post',
@@ -184,13 +184,13 @@
                 var table = layui.table;
                 table.render({
                     id: "checkboxTable",
-                    url: '/type/getAll',
+                    url: '/semester/findAll',
                     elem: '#LAY_table_user',
                     page: true,
                     cols: [[
                         {checkbox: true},
                         {field: 'id', title: 'ID', width: 80},
-                        {field: 'name', title: '类型名', sort: true, width: 120},
+                        {field: 'name', title: '学期名', sort: true, width: 120},
                         {field: 'createTime', title: '创建时间', sort: true, width: 150},
                         {toolbar: '#barTeacher', title: '操作', width: 120}
                     ]]
@@ -215,7 +215,7 @@
 
 </script>
 <script type="text/html" id="barTeacher">
-    <a title="编辑" onclick="xadmin.open('编辑','/type/toEditType?typeId={{d.id}}',800,600)" href="javascript:;">
+    <a title="编辑" onclick="xadmin.open('编辑','/semester/toEditSemester?semesterId={{d.id}}',800,600)" href="javascript:;">
         <i class="layui-icon">&#xe642;</i>
     </a>
     <a title="移除" onclick="member_del(this,{{d.id}})" href="javascript:;">

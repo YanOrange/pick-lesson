@@ -23,21 +23,35 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
-            <input type="hidden" name="id" value="${type.id}">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>类型名称
+                    <span class="x-red">*</span>学期
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="name" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${type.name!''}">
+                    <select name="semester" id="semester" lay-filter="change">
+                        <option value="">请选择学期</option>
+                    </select>
+                </div>
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>开始时间
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="taskTime" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>结束时间
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="endTime" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
                 <button class="layui-btn" lay-filter="edit" lay-submit="">
-                    确认修改
+                    确认新增
                 </button>
             </div>
         </form>
@@ -53,22 +67,27 @@
             //自定义验证规则
             form.verify({});
 
+            initSemester();
+
             //监听提交
             form.on('submit(edit)',
                 function (data) {
                     console.log(data);
                     //发异步，把数据提交给后端
+                    var semester = data.field.semester;
+                    data.field['semester'] = {};
+                    data.field.semester['id'] = semester;
                     var s = JSON.stringify(data.field);
                     console.log(s)
                     $.ajax({
-                        url: '/type/editInfo',
+                        url: '/task/add',
                         data: s,
                         contentType: "application/json;charset=UTF-8",
                         type: 'post',
                         dataType: 'json',
                         success: function (res) {
                             if (res.success) {
-                                layer.alert('信息修改成功', {
+                                layer.alert('课程新增成功', {
                                         icon: 6
                                     },
                                     function () {
@@ -89,7 +108,28 @@
                     return false;
                 });
 
-        });</script>
+
+            function initSemester() {
+                $.ajax({
+                    url: '/semester/findAll',
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.success) {
+                            var html = '<option value="">请选择学期</option>';
+                            $.each(res.data, function (i, r) {
+                                html += '<option value="' + r.id + '">' + r.name + '</option>';
+                            })
+                            $('#semester').html(html);
+                            form.render('select');
+                        }
+                    }
+                })
+            }
+
+        });
+
+
+</script>
 <script>
     layui.use('laydate',
         function () {

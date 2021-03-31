@@ -91,12 +91,12 @@
                                 <cite>个人信息</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('开始选课','/page/essayList')">
+                            <a onclick="xadmin.add_tab('开始选课','/page/pickList')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>开始选课</cite></a>
                         </li>
                         <li>
-                            <a onclick="xadmin.add_tab('自选科目','/page/essayList')">
+                            <a onclick="xadmin.add_tab('自选科目','/page/userLessonList')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>自选科目</cite></a>
                         </li>
@@ -119,6 +119,11 @@
                             <a onclick="xadmin.add_tab('学生管理','/page/userList')">
                                 <i class="iconfont">&#xe6a7;</i>
                                 <cite>学生管理</cite></a>
+                        </li>
+                        <li>
+                            <a onclick="xadmin.add_tab('学期管理','/page/semesterList')">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>学期管理</cite></a>
                         </li>
                         <li>
                             <a onclick="xadmin.add_tab('课程表管理','/page/classList')">

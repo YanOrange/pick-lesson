@@ -28,7 +28,7 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">用户名</label>
+                    <label class="layui-form-label">学号</label>
                     <div class="layui-input-block">
                         <div class="layui-form-mid">${user.account!''}</div>
                     </div>
@@ -40,9 +40,9 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">笔名</label>
+                    <label class="layui-form-label">专业</label>
                     <div class="layui-input-block">
-                        <div class="layui-form-mid">${user.penName!''}</div>
+                        <div class="layui-form-mid">${user.specialty!''}</div>
                     </div>
                 </div>
             </div>
@@ -55,9 +55,9 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">年龄</label>
+                    <label class="layui-form-label">班级</label>
                     <div class="layui-input-block">
-                        <div class="layui-form-mid">${user.age!''}</div>
+                        <div class="layui-form-mid">${user.grade!''}</div>
                     </div>
                 </div>
             </div>
@@ -67,31 +67,6 @@
                     <div class="layui-input-block">
                         <div class="layui-form-mid">${user.phone!''}</div>
                     </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
-                        <div class="layui-form-mid">${user.email!''}</div>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">联系地址</label>
-                    <div class="layui-input-block">
-                        <div class="layui-form-mid">${user.address!''}</div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">出生日期</label>
-                <div class="layui-input-block">
-                    <div class="layui-form-mid">${user.birthDay!''}</div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">身份证件</label>
-                <div class="layui-input-block">
-                    <div class="layui-form-mid">${user.idCard!''}</div>
                 </div>
             </div>
             <div class="layui-form-item">

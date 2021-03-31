@@ -23,78 +23,43 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
-            <input type="hidden" name="id" value="${author.id}">
-            <div class="layui-form-item">
-                <label for="account" class="layui-form-label">
-                    <span class="x-red">*</span>学号
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="account" name="account" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.account}">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="passWord" class="layui-form-label">
-                    <span class="x-red">*</span>密码
-                </label>
-                <div class="layui-input-inline">
-                    <input type="password" id="passWord" name="passWord" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.passWord}">
-                </div>
-            </div>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>真实姓名
+                    <span class="x-red">*</span>学期
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="name" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.name}">
+                    <select name="semester" id="semester" lay-filter="change">
+                        <option value="">请选择学期</option>
+                    </select>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"><span class="x-red">*</span>性别</label>
-                <div class="layui-input-inline">
-                    <#if author.sex == '男'>
-                        <input type="radio" name="sex" value="男" title="男" checked>
-                        <input type="radio" name="sex" value="女" title="女">
-                    <#elseif author.sex == '女'>
-                        <input type="radio" name="sex" value="男" title="男">
-                        <input type="radio" name="sex" value="女" title="女" checked>
-                    </#if>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>联系方式
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>科目
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" name="phone" required="" lay-verify="phone"
-                           autocomplete="off" class="layui-input" value="${author.phone}">
+                    <select name="lesson" id="lesson">
+                        <option value="">请选择科目</option>
+                    </select>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>专业
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>上课时间
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" name="specialty" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.specialty}">
+                    <input type="text" name="doClassTime" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>班级
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>总人数
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" name="grade" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${author.grade}">
+                    <input type="text" name="num" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
                 <button class="layui-btn" lay-filter="edit" lay-submit="">
-                    确认修改
+                    确认新增
                 </button>
             </div>
         </form>
@@ -110,22 +75,31 @@
             //自定义验证规则
             form.verify({});
 
+            initSemester();
+            initLesson();
+
             //监听提交
             form.on('submit(edit)',
                 function (data) {
                     console.log(data);
                     //发异步，把数据提交给后端
+                    var semester = data.field.semester;
+                    data.field['semester'] = {};
+                    data.field.semester['id'] = semester;
+                    var lesson = data.field.lesson;
+                    data.field['lesson'] = {};
+                    data.field.lesson['id'] = lesson;
                     var s = JSON.stringify(data.field);
                     console.log(s)
                     $.ajax({
-                        url: '/user/editInfo',
+                        url: '/lessonClass/add',
                         data: s,
                         contentType: "application/json;charset=UTF-8",
                         type: 'post',
                         dataType: 'json',
                         success: function (res) {
                             if (res.success) {
-                                layer.alert('信息修改成功', {
+                                layer.alert('课程新增成功', {
                                         icon: 6
                                     },
                                     function () {
@@ -146,7 +120,44 @@
                     return false;
                 });
 
-        });</script>
+            function initLesson() {
+                $.ajax({
+                    url: '/lesson/getAll',
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.success) {
+                            var html = '<option value="">请选择科目</option>';
+                            $.each(res.data, function (i, r) {
+                                html += '<option value="' + r.id + '">' + r.name + '</option>';
+                            })
+                            $('#lesson').html(html);
+                            form.render('select');
+                        }
+                    }
+                })
+            }
+
+            function initSemester() {
+                $.ajax({
+                    url: '/semester/findAll',
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.success) {
+                            var html = '<option value="">请选择学期</option>';
+                            $.each(res.data, function (i, r) {
+                                html += '<option value="' + r.id + '">' + r.name + '</option>';
+                            })
+                            $('#semester').html(html);
+                            form.render('select');
+                        }
+                    }
+                })
+            }
+
+        });
+
+
+</script>
 <script>
     layui.use('laydate',
         function () {

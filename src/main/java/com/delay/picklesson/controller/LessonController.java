@@ -40,7 +40,8 @@ public class LessonController {
     @RequestMapping("getAll")
     @ResponseBody
     public ExecuteResult findAll(){
-        return null;
+        List<Lesson> all = lessonService.findAll();
+        return ExecuteResult.ok(all);
     }
 
     /**

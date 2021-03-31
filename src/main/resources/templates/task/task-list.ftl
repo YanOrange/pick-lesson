@@ -47,19 +47,26 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
 
-                    <form class="layui-form layui-col-md12  layui-form-pane">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">选择学期</label>
-                            <div class="layui-input-inline" style="width:300px;">
-                                <select name="semester" id="semester" lay-filter="change">
-                                    <option>请选择</option>
-                                </select>
-                            </div>
+                    <form class="layui-form layui-col-space5">
+                        <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end"></div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
+                                   class="layui-input"></div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                <i class="layui-icon">&#xe615;</i></button>
                         </div>
                     </form>
-
                 </div>
                 <div class="layui-card-header">
+                    <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/addTask',800,600)"
+                            href="javascript:;">
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增任务
+                    </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
@@ -94,49 +101,21 @@
         });
 </script>
 <script>
-    layui.use(['table', 'form'], function () {
+    layui.use('table', function () {
         var table = layui.table;
-        var form = layui.form;
-        initSemester();
-        /**
-         * 监听下拉框变化
-         * */
-        form.on('select(change)', function (data) {
-            getAllEssay(data.value);
-        });
-
-        function initSemester(){
-            $.ajax({
-                url: '/semester/findAll',
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success) {
-                        var html = '<option value="" >请选择学期</option>';
-                        $.each(res.data, function (i, val) {
-                            html += '<option value="' + val.id + '">' + val.name + '</option>';
-                        })
-                        $('#semester').html(html);
-                        form.render('select');
-                    } else {
-                        layer.msg(res.msg, {icon: 2, time: 2000});
-                    }
-                }
-            })
-        }
 
     });
 </script>
 <script>
     /*操作数据*/
-
-    /*用户-删除*/
+    /*类型-删除*/
     function member_del(obj, id) {
         var arr = [];
         arr.push(id);
-        layer.confirm('确认要删除吗？', function (index) {
+        layer.confirm('确认要永久删除吗？', function (index) {
             //发异步删除数据
             $.ajax({
-                url: '/lessonClass/delete',
+                url: '/task/delete',
                 data: JSON.stringify(arr),
                 type: 'post',
                 dataType: 'json',
@@ -166,7 +145,7 @@
             function () {
                 //捉到所有被选中的，发异步进行删除
                 $.ajax({
-                    url: '/lessonClass/delete',
+                    url: '/task/delete',
                     data: JSON.stringify(ids),
                     dataType: 'json',
                     type: 'post',
@@ -190,35 +169,33 @@
             });
     }
 
-
 </script>
 <script th:inline="none">
     /*数据查询*/
 
     $(function () {
-
+        getAllEssay();
     })
 
-    /*获取全部课程表*/
-    function getAllEssay(semesterId) {
+    /*获取全部文章*/
+    function getAllEssay() {
         layui.use('table',
             function () {
                 var table = layui.table;
                 table.render({
                     id: "checkboxTable",
-                    url: '/lessonClass/findAllBySemesterId?semesterId='+semesterId,
+                    url: '/task/findAll',
                     elem: '#LAY_table_user',
                     page: true,
                     cols: [[
                         {checkbox: true},
                         {field: 'id', title: 'ID', width: 80},
-                        {field: 'lesson', title: '课程名', sort: true, width: 120,templet:'<div>{{d.lesson.name}}</div>'},
-                        {field: 'lesson', title: '授课教师', sort: true, width: 120,templet:'<div>{{d.lesson.teacherName}}</div>'},
-                        {field: 'doClassTime', width: 80, title: '上课时间', sort: true},
-                        {field: 'num', width: 80, title: '剩余坐席', sort: true},
-                        {field: 'createTime', title: '创建时间', sort: true, width: 120},
+                        {field: 'name', title: '任务名', sort: true, width: 120},
+                        {field: 'semester', title: '学期名', sort: true, width: 120,templet:'<div{{d.semester.name}}></div>'},
+                        {field: 'taskTime', title: '开始时间', sort: true, width: 120},
+                        {field: 'endTime', title: '结束时间', sort: true, width: 120},
+                        {field: 'createTime', title: '创建时间', sort: true, width: 150},
                         {toolbar: '#barTeacher', title: '操作', width: 120}
-
                     ]]
                 })
 
@@ -241,6 +218,9 @@
 
 </script>
 <script type="text/html" id="barTeacher">
+    <a title="编辑" onclick="xadmin.open('编辑','/task/toEditTask?taskId={{d.id}}',800,600)" href="javascript:;">
+        <i class="layui-icon">&#xe642;</i>
+    </a>
     <a title="移除" onclick="member_del(this,{{d.id}})" href="javascript:;">
         <i class="layui-icon">&#xe640;</i>
     </a>

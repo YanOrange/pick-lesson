@@ -1,6 +1,9 @@
 package com.delay.picklesson.controller;
 
 import com.delay.picklesson.entity.User;
+import com.delay.picklesson.entity.UserLesson;
+import com.delay.picklesson.service.LessonClassService;
+import com.delay.picklesson.service.UserLessonService;
 import com.delay.picklesson.service.UserService;
 import com.delay.picklesson.utils.ExecuteResult;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +24,8 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    UserLessonService userLessonService;
 
     /**
      * 获取个人信息
@@ -72,6 +77,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ExecuteResult delete(@RequestBody List<Integer> userIds) {
         userIds.stream().forEach(o -> {
+            userLessonService.deleteByUserId(o);
             userService.deleteById(o);
         });
         return ExecuteResult.ok();

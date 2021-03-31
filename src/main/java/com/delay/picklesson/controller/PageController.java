@@ -112,4 +112,60 @@ public class PageController extends BaseController{
         return "class/class-list";
     }
 
+    /**
+     * 学期列表
+     * @return
+     */
+    @RequestMapping("semesterList")
+    public String semesterList(){
+        return "semester/semester-list";
+    }
+
+
+    /**
+     * 添加学期
+     * @return
+     */
+    @RequestMapping("addSemester")
+    public String addSemester(){
+        return "semester/semester-add";
+    }
+
+    /**
+     * 前往定时任务页面
+     * @return
+     */
+    @RequestMapping("toGetMaster")
+    public String toGetMaster(){
+        return "task/task-list";
+    }
+
+    /**
+     * 前往管理员列表
+     * @return
+     */
+    @RequestMapping("toAdmin")
+    public String toAdmin(){
+        return "admin/admin-list";
+    }
+
+    /**
+     * 前往选课列表
+     * @return
+     */
+    @RequestMapping("pickList")
+    public String pickList(){
+        return "pick/pick-list";
+    }
+
+    /**
+     * 前往自选列表
+     * @return
+     */
+    @RequestMapping("userLessonList")
+    public String userLessonList(){
+        return "pick/user-lesson-list";
+    }
+
+
 }

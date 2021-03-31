@@ -13,4 +13,6 @@ public interface UserLessonService extends JpaRepository<UserLesson,Integer> {
     void deleteByLessonClassId(Integer o);
 
     void deleteByLessonId(Integer o);
+
+    void deleteByUserId(Integer o);
 }
