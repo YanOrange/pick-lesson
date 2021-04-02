@@ -243,11 +243,11 @@
                         {field: 'id', title: 'ID', width: 80},
                         {field: 'name', title: '姓名', sort: true, width: 120},
                         {field: 'sex', width: 80, title: '性别', sort: true},
-                        {field: 'age', width: 80, title: '年龄', sort: true},
-                        {field: 'phone', title: '联系方式', sort: true, width: 150},
-                        {field: 'idCard', title: '身份证', sort: true, width: 150},
-                        {field: 'address', title: '地址', sort: true, width: 150},
-                        {field: 'email', title: '电子邮箱', sort: true, width: 120},
+                        {field: 'phone', width: 80, title: '手机号', sort: true},
+                        {field: 'specialty', title: '专业', sort: true, width: 150},
+                        {field: 'grade', title: '班级', sort: true, width: 150},
+                        {field: 'account', title: '学号', sort: true, width: 150},
+                        {field: 'createTime', title: '创建时间', sort: true, width: 120},
                         {toolbar: '#barTeacher', title: '操作', width: 120}
 
                     ]]

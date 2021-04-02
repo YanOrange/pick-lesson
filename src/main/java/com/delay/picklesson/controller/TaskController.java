@@ -4,6 +4,7 @@ import com.delay.picklesson.entity.Semester;
 import com.delay.picklesson.entity.Task;
 import com.delay.picklesson.service.TaskService;
 import com.delay.picklesson.utils.ExecuteResult;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,6 +84,23 @@ public class TaskController {
         }
         task.setCreateTime(new Date());
         taskService.saveAndFlush(task);
+        return ExecuteResult.ok();
+    }
+
+    /**
+     * 删除任务
+     * @param ids
+     * @return
+     */
+    @RequestMapping("delete")
+    @ResponseBody
+    public ExecuteResult delete(@RequestBody List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return ExecuteResult.fail(1, "未选择一列");
+        }
+        ids.stream().forEach(o -> {
+            taskService.deleteById(o);
+        });
         return ExecuteResult.ok();
     }
 

@@ -35,11 +35,20 @@
             </div>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>任务名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>开始时间
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" name="taskTime" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="">
+                           autocomplete="off" class="layui-input" value="" id="start">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -48,7 +57,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" name="endTime" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="">
+                           autocomplete="off" class="layui-input" value="" id="end">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -141,12 +150,14 @@
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#start' //指定元素
+                elem: '#start', //指定元素
+                type: 'datetime'
             });
 
             //执行一个laydate实例
             laydate.render({
-                elem: '#end' //指定元素
+                elem: '#end' , //指定元素
+                type: 'datetime'
             });
 
         });

@@ -47,7 +47,7 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
 
-                    <form class="layui-form layui-form-pane">
+                    <form class="layui-form   layui-form-pane">
                         <div class="layui-form-item">
                             <label class="layui-form-label">选择学期</label>
                             <div class="layui-input-inline" style="width:300px;">
@@ -62,7 +62,7 @@
                 <div class="layui-card-header">
                     <button class="layui-btn layui-btn-danger" onclick="xadmin.open('新增','/page/addLessonClass',800,600)"
                             href="javascript:;">
-                        <i class="layui-icon iconfont">&#xe6b9;</i>新增科目
+                        <i class="layui-icon iconfont">&#xe6b9;</i>新增课程
                     </button>
                 </div>
                 <div class="layui-card-body ">

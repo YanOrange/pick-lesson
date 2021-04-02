@@ -191,7 +191,7 @@
                         {checkbox: true},
                         {field: 'id', title: 'ID', width: 80},
                         {field: 'name', title: '任务名', sort: true, width: 120},
-                        {field: 'semester', title: '学期名', sort: true, width: 120,templet:'<div{{d.semester.name}}></div>'},
+                        {field: 'semester', title: '学期名', sort: true, width: 120,templet:'<div>{{d.semester.name}}</div>'},
                         {field: 'taskTime', title: '开始时间', sort: true, width: 120},
                         {field: 'endTime', title: '结束时间', sort: true, width: 120},
                         {field: 'createTime', title: '创建时间', sort: true, width: 150},
